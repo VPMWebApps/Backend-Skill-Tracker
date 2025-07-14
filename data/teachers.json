@@ -1,0 +1,49 @@
+{
+  "teachers": [
+    {
+      "id": 1,
+      "username": "john_doe",
+      "email": "john.doe@example.com",
+      "password": "teacher123",
+      "role": "teacher",
+      "specialization": "Web Development",
+      "courses": ["React", "Node.js", "MongoDB"]
+    },
+    {
+      "id": 2,
+      "username": "jane_smith",
+      "email": "jane.smith@example.com",
+      "password": "teacher456",
+      "role": "teacher",
+      "specialization": "Data Science",
+      "courses": ["Python", "Machine Learning", "Data Analysis"]
+    },
+    {
+      "id": 3,
+      "username": "mike_wilson",
+      "email": "mike.wilson@example.com",
+      "password": "teacher789",
+      "role": "teacher",
+      "specialization": "Mobile Development",
+      "courses": ["React Native", "Flutter", "iOS Development"]
+    },
+    {
+      "id": 4,
+      "username": "sarah_johnson",
+      "email": "sarah.johnson@example.com",
+      "password": "teacher101",
+      "role": "teacher",
+      "specialization": "Backend Development",
+      "courses": ["Java", "Spring Boot", "Microservices"]
+    },
+    {
+      "id": 5,
+      "username": "david_brown",
+      "email": "david.brown@example.com",
+      "password": "teacher202",
+      "role": "teacher",
+      "specialization": "Frontend Development",
+      "courses": ["JavaScript", "Vue.js", "CSS/SCSS"]
+    }
+  ]
+} 

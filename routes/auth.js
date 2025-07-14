@@ -1,10 +1,15 @@
 import express from "express";
-import authController from "../controllers/authController.js";
+import { signup, login, logout } from "../controllers/authController.js";
 
 const router = express.Router();
 
-router.post("/signup", authController.signup);
-router.post("/login",  authController.login);
-router.post("/logout",  authController.logout); // optional for stateless logout
+// Health check endpoint
+router.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
+
+router.post("/signup", signup);
+router.post("/login",  login);
+router.post("/logout", logout); // optional for stateless logout
 
 export default router;

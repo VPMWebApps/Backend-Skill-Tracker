@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret123";
 
-const signup = async (req, res) => {
+export const signup = async (req, res) => {
   console.log("Incoming signup request:", req.body);
   const { username, email, password } = req.body;
 
@@ -19,11 +19,12 @@ const signup = async (req, res) => {
 
     res.status(201).json({ message: "User created", userId: user._id });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Signup error:', err);
+    res.status(500).json({ message: "Error creating user" });
   }
 };
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -35,18 +36,21 @@ const login = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
 
-    res.status(200).json({ token, userId: user._id });
+    res.status(200).json({ 
+      token, 
+      user: {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+        role: user.role
+      }
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Login error:', err);
+    res.status(500).json({ message: "Error during login" });
   }
 };
 
-const logout = (req, res) => {
+export const logout = (req, res) => {
   res.status(200).json({ message: "User logged out (handled on frontend)" });
-};
-
-export default {
-  signup,
-  login,
-  logout,
 };

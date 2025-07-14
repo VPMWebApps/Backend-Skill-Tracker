@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "email": "admin@skilltracker.com",
+    "password": "admin123",
+    "username": "AdminUser",
+    "role": "admin"
+  },
+  "superAdmin": {
+    "email": "superadmin@skilltracker.com",
+    "password": "superadmin123",
+    "username": "SuperAdmin",
+    "role": "superadmin"
+  }
+} 
