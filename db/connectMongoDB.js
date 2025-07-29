@@ -1,15 +1,12 @@
 import mongoose from 'mongoose'
 
-const connectMongoDB = async () => {
+export const connectMongoDB = async () => {
     try {
         // Use a default MongoDB URI if not provided in environment
-        const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/skilltracker';
+        const mongoURI = process.env.MONGO_URI ;
         console.log('Attempting to connect to MongoDB...');
         
-        const conn = await mongoose.connect(mongoURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        const conn = await mongoose.connect(mongoURI);
         
         console.log('=================================');
         console.log('MongoDB Connection Status:');

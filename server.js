@@ -3,14 +3,21 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
+import { connectMongoDB } from "../Backend/db/connectMongoDB.js";
 
-dotenv.config();
+dotenv.config({ path: '../Backend/.env' });
 
 const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: function (origin, callback) {
+        if (!origin || origin.startsWith('http://localhost:')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: false
@@ -28,8 +35,7 @@ app.get('/api/auth/health', (req, res) => {
 app.use("/api/auth", authRoutes);
 
 // MongoDB connection
-mongoose
-  .connect(process.env.MONGODB_URI)
+connectMongoDB()
   .then(() => {
     console.log("Connected to MongoDB");
     const PORT = process.env.PORT || 5000;
@@ -39,4 +45,4 @@ mongoose
   })
   .catch((err) => {
     console.error("MongoDB connection error:", err);
-  }); 
+  });
