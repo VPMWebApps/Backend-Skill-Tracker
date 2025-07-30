@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret123";
 
 export const signup = async (req, res) => {
   console.log("Incoming signup request:", req.body);
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
 
   try {
     const exists = await User.findOne({ email });
@@ -14,7 +14,12 @@ export const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({ username, email, password: hashedPassword });
+    const user = new User({ 
+      username, 
+      email, 
+      password: hashedPassword,
+      role: role
+    });
     await user.save();
 
     res.status(201).json({ message: "User created", userId: user._id });
@@ -25,12 +30,16 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  console.log('Login attempt:', { email: req.body.email });
-  const { email, password } = req.body;
+  console.log('Login attempt:', { email: req.body.email, role: req.body.role });
+  const { email, password, role } = req.body;
 
   try {
     const user = await User.findOne({ email });
     if (!user) {
+      console.log('User not found for email:', email);
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    if (user.role !== role) {
       console.log('User not found for email:', email);
       return res.status(400).json({ message: "Invalid email or password" });
     }

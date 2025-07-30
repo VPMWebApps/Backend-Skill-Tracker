@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
-import { connectMongoDB } from "../Backend/db/connectMongoDB.js";
+import { connectMongoDB } from "./db/connectMongoDB.js";
 
-dotenv.config({ path: '../Backend/.env' });
+dotenv.config({ path: './.env' });
 
 const app = express();
 
